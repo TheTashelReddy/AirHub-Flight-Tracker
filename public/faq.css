@@ -1,0 +1,132 @@
+/* Custom CSS for Search Bar */
+.search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .search-input {
+    width: 70%;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    border: 1px solid #f2f2f2;
+    font-size: 1rem;
+    outline: none;
+  }
+  
+  .search-button {
+    margin-left: 1rem;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: #f2f2f2;
+    border: 1px solid #007bff;
+    cursor: pointer;
+  }
+  
+  .search-button:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+  
+  /* Custom CSS for Live Chat Section */
+  .LiveChat {
+    width: 9.688rem;
+    height: 2.75rem;
+    margin: 0.313rem 39rem 2.344rem 0.75rem;
+    font-family: Inter;
+    font-size: 2.25rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000;
+  }
+  
+  /* Custom CSS for Get Answers and Explore New Ways Section */
+  .Get-answers-and-explore-new-ways-to-use-AirHub {
+    width: 45.5rem;
+    height: 2.563rem;
+    margin: 0 1.313rem 2.063rem 0;
+    font-family: NunitoSans;
+    font-size: 1.875rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 1.2px;
+    text-align: left;
+    color: #000;
+  }
+  
+  /* Custom CSS for FAQ Section */
+  .accordion {
+    margin-top: 2rem;
+    background-color: #f2f2f2;
+
+  }
+  
+  .accordion-header {
+    background-color: #f2f2f2;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .accordion-header:hover {
+    background-color: #e9ecef;
+  }
+  
+  .accordion-button {
+    color: #000;
+    background-color: #f2f2f2;
+
+  }
+  
+  .accordion-body {
+    border: 1px solid #f2f2f2;
+    border-top: none;
+    border-radius: 0 0 0.25rem 0.25rem;
+    padding: 1rem;
+    background-color: #f2f2f2;
+    color: #333;
+  }
+  
+  .accordion-item:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+  
+  /* Icon for Collapsible Sections */
+  .accordion-button::after {
+    content: '\002B';
+    color: #000;
+    float: right;
+    font-weight: bold;
+    margin-left: 5px;
+    background-color: #f2f2f2;
+  }
+  
+  .accordion-header[aria-expanded="true"] .accordion-button::after {
+    content: '\2212';
+  }
+  
+  /* Custom CSS for specific question */
+  #headingOne .accordion-button {
+    font-family: NunitoSans;
+    font-size: 2rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000;
+  }
+  
+  
