@@ -1,15 +1,20 @@
 const mongoose = require('mongoose');
+require('dotenv').config(); // Load environment variables from .env file
+
+// MongoDB connection string from environment variable
+const mongoURI = process.env.MONGODB_URI;
+
 // Connect to MongoDB
-const connect = mongoose.connect( 'mongodb+srv://trackairhub:mYscVnRcyYlNVU09@cluster0.hnkcfcs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
-
-
-// Check database connected or not
-connect.then(() => {
+mongoose.connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => {
     console.log("Database Connected Successfully");
 })
-.catch(() => {
-    console.log("Database cannot be Connected");
-})
+.catch((error) => {
+    console.error("Database connection error:", error.message);
+});
 
 
 // Define the schema for storing images
@@ -79,4 +84,4 @@ const collection = mongoose.model("users", userSchema);
 // Create a model for the image schema
 const Image = mongoose.model("images", imageSchema);
 
-module.exports = { User: collection, Image: Image }; 
+module.exports = { User: collection, Image: Image, mongoose }; 

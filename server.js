@@ -8,14 +8,11 @@ const app = express();
 const PORT = 8080;
 const session = require('express-session');
 const bcrypt = require('bcrypt');
-const { User, Image } = require('./config');
-const MongoClient = require('mongodb').MongoClient;
+const { User, Image,mongoose } = require('./config');
+
+require('dotenv').config();
 
 const fileType = import('file-type');
-
-
-const client = new MongoClient('mongodb+srv://trackairhub:mYscVnRcyYlNVU09@cluster0.hnkcfcs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', { useNewUrlParser: true, useUnifiedTopology: true });
-
 
 app.use(session({
   secret: 'your-secret-key',
