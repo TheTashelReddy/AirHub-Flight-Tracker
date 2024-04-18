@@ -1,0 +1,30 @@
+.signup-bg {
+    background-image: url('your-image-url.jpg');
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.signup-form {
+    max-width: 400px;
+}
+
+
+a{
+text-decoration: none;
+}
+
+.text-blue{
+margin-left: 320px;
+text-decoration: none;
+}
+
+.text-danger{
+text-decoration: underline;
+}
+
+.flex-grow-1{
+margin-left: 10px;
+margin-right: 10px;
+}

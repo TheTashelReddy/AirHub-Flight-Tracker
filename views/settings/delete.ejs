@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row justify-content-center">
+      <div class="col-md-6">
+          <form action="/delete-account" method="POST">
+              <h1 class="text-danger mt-2">Danger Zone</h1>
+              <button type="submit" class="btn btn-danger mb-3" onclick="return confirm('Are you sure you want to delete your account?')">Delete My Account</button>
+              <label for="email">Enter your email to delete your account:</label>
+              <input type="email" name="email" id="email" class="form-control mb-3" required>
+              <button type="submit" class="btn btn-danger">I Like Danger</button>
+          </form>
+
+          <!-- Display deletion message here -->
+          <p class="delete-message"></p>
+
+          <a href="/login"><button type="button" class="btn btn-secondary mt-5">Return to Profile</button></a>  
+      </div>
+  </div>
+</div>
+
+
+<script>
+document.querySelector('form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const email = formData.get('email');
+
+    try {
+        const response = await fetch('/delete-account', {
+            method: 'POST',
+            body: JSON.stringify({ email: email }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            // Replace the alert with a message indicating successful deletion
+            document.querySelector('.delete-message').textContent = 'Account was deleted successfully.';
+            // Optionally, hide or remove the form after successful deletion
+            document.querySelector('form').style.display = 'none';
+        } else {
+            console.error('Failed to delete account.');
+        }
+    } catch (error) {
+        console.error('Error deleting account:', error);
+        alert('An error occurred while deleting your account. Please try again later.');
+    }
+});
+
+</script>
+

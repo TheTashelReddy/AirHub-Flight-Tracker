@@ -1,0 +1,221 @@
+
+  
+          <div class="container">
+              <main class="py-5">
+                  <!-- This section is gonna redirect 
+                    to the second page (flight page) once 
+                    the user clicks on the search button a
+                    ccordin with its flight number or route provided -->
+                  <section class="search-section">
+                    <!-- Hero content -->
+                    <div class="jumbotron text-center position-relative style="margin-top: 50px;">
+                      <div class="d-flex flex-column justify-content-center align-items-center position-absolute top-0 start-0 end-0 bottom-0">         
+                      </div>
+                      <div class="video-container">
+                        <video src="/assets/map.mp4" autoplay loop muted playsinline class="mx-auto d-block"></video>
+                        <div class="d-flex flex-column justify-content-center align-items-center position-relative top-0 start-0 end-0 bottom-0 animate-slideInDown">
+                          <h1 class="fw-bold text-end display-5" style="color: #4cacff;">Let's Track <be> Your Flight!</h1>
+                        </div>
+                    </div>
+                    
+                      
+                      
+                     
+                    </div>
+                    <!-- Search bar -->
+                  
+                    <div class="d-flex justify-content-start">
+                      <button class="btn btn-md btn-outline-warning cursor-pointer"  text-dark type="button" onclick="window.location.href='/flights'" style="margin-top: 20px;">By Flight Number</button>
+                      <button class="btn btn-md btn-outline-warning cursor-pointer" text-dark type="button" onclick="window.location.href='#'" style="margin-top: 20px; margin-left: -5px; background-color: #f5e1a7; color: #000;">By Route</button>
+                  </div>
+                  
+                    <form class="d-flex">
+                      <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" style="background-color: #ededed; border-color: #ffca2b;" >
+                      <button class="btn btn-warning" type="submit">Search</button>
+                    </form>
+                  </section>
+  
+                  
+                  <section id="dashboard" class="mt-5">
+                    <h1>Customizable Dashboard</h1>
+                      <!-- Dashboard content will be dynamically generated here -->
+                  </section>
+                  <div class="container mt-3">
+                    <div class="form-group">
+                        <label for="userContent">Add Content:</label>
+                        <input type="text" class="form-control" id="userContent" style="background-color: #ededed; border-color: #ffca2b;">
+                    </div>
+                    <button class="btn btn-warning mt-3 mb-5" id="addContentBtn">Add Content To Dashboard</button>
+                </div>
+                  <script>
+           $(document).ready(function() {
+  
+      var initialContent = '<div class="row">';
+      initialContent += '<div class="col-md-6">';
+      initialContent += '<h2>Your Personal Dashboard!</h2>';
+      initialContent += '<p>Here, you can customize your flight tracker experience.</p>';
+      initialContent += '</div>';
+      initialContent += '</div>';
+      $('#dashboard').html(initialContent);
+  
+   
+      function deleteContent() {
+          $(this).closest('.content-item').remove();
+      }
+  
+      // Event listener for adding user content
+      $('#addContentBtn').click(function() {
+          var userContent = $('#userContent').val();
+          if (userContent.trim() !== '') {
+              var newContent = '<div class="row content-item">';
+              newContent += '<div class="col-md-6">';
+              newContent += '<p>' + userContent + '</p>';
+              newContent += '</div>';
+              newContent += '<div class="col-md-6">';
+              newContent += '<button class="btn btn-danger delete-btn">Delete</button>';
+              newContent += '</div>';
+              newContent += '</div>';
+              $('#dashboard').append(newContent);
+              $('#userContent').val(''); 
+          }
+      });
+  
+      // Event delegation for delete button
+      $('#dashboard').on('click', '.delete-btn', deleteContent);
+  });
+  
+                  </script>
+                
+                  <!-- Real-time Worldwide Flight Traffic -->
+                  <section class="intro-paragraph">
+                    <div>
+                        <br>
+                        <h4>
+                          Real time Worldwide 
+                          <medium class="text-muted">Flight Traffic</medium>
+                        </h4>
+                        
+                        <p class="test">
+                          Explore the skies around you or anywhere in the world using our live flight tracking map. 
+                          Click on any aircraft or airport for a more detailed view, and use the layer icon in the top
+                          right corner to add weather layers and more.
+                        </p>
+                    </div>
+                  </section>
+            
+                  <!-- Flight Radar map -->
+                  <div id="map" style="  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);"></div>
+            
+                  
+                  <!-- Airport arrivals section: exhibition porpouses -->
+                      <section class="airport-arrivals  mb-5">
+                        <div>
+                          <br>
+                          <h2>Airport Time Arrivals</h2>
+                          <p>Stay updated on your airport timetable
+                            schedule with our easy-to-use tracking 
+                            feature! Never miss a flight again by 
+                            keeping tabs on your airport timetable
+                            schedule. With our real-time updates,
+                            you'll always be in the know! </p>
+                        </div>
+                        <div class="search-form">
+                          <div class="row g-3">
+                            <div class="col-md-3">
+                              <label for="departure-airport" class="form-label">Departure Airport (IATA code):</label>
+                              <input type="text" id="departure-airport" name="departure-airport" class="form-control" placeholder="e.g., YYZ" required style="background-color: #ededed; border-color: #ffca2b;">
+                            </div>
+                            <div class="col-md-3">
+                              <label for="arrival-airport" class="form-label">Arrival Airport (IATA code):</label>
+                              <input type="text" id="arrival-airport" name="arrival-airport" class="form-control" placeholder="e.g., JFK" required style="background-color: #ededed; border-color: #ffca2b;">
+                            </div>
+                            <div class="col-lg-3" >
+                              <label for="arrival-date" class="form-label">Arrival Date:</label>
+                              <input type="date" id="arrival-date" name="arrival-date" class="form-control" required style="background-color: #ededed; border-color: #ffca2b;">
+                            </div>
+                            <div class="col-md-3 align-self-end">
+                              <button id="find-flights" class="btn btn-warning w-100" onclick="handleFindFlights()">Find Flights</button>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+        
+                      <!-- Table for displaying flight arrival details -->
+                      <div id="flight-details" style="display: none;" class="mb-5">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>Flight Number</th>
+                              <th>Departure</th>
+                              <th>Arrival</th>
+                            </tr>
+                          </thead>
+                          <tbody id="flight-details-body" >
+            
+                            <!-- Flight details rows will be dynamically added here -->
+                          </tbody>
+                        </table>
+                      </div>
+            
+                      <section class="weather-info mt-5">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h2>Stay Updated on Weather Conditions</h2>
+                                    <p>Plan your journey with confidence knowing you have access to up-to-date weather information at your fingertips.</p>
+  
+                                       <p>From sunny skies to stormy conditions, we've got you covered every step of the way! Whether you're embarking on
+                                        a business trip or a leisurely vacation, our comprehensive weather data ensures you're prepared for whatever
+                                         Mother Nature has in store. 
+                                        </p>
+                                       </p>With real-time updates, you can make informed decisions about your travel plans, 
+                                         ensuring a smooth and enjoyable experience from departure to arrival. So sit back,
+                                       relax, and let us take the guesswork out of your travels, so you can focus on making lasting memories.</p>
+                                       <a href="../weather/weather.html" class="btn btn-warning">Check Weather</a>
+                                  </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex justify-content-center align-items-center" >
+                                        <img src="/assets/waitingflight.jpg" 
+                                             alt="weather icons"
+                                             class="img-fluid"
+                                             width="70%"
+                                             height="50%">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+  
+                    <section class="weather-info mt-5">
+                      <div class="container">
+                          <div class="row">
+                              <div class="col-md-6">
+                                <div class="section">
+                      
+                                  <h2>Explore Amenities</h2>
+                                  <p>Discover all the amenities our airport has to offer.
+                                    <br> From restaurants to shops and more, we have everything
+                                    <br> you need to make your travel experience comfortable and enjoyable.</p>
+                                  <a href="../amenities/amenities.html" class="btn btn-warning">Explore Amenities</a>
+                              </div>
+                              
+                             
+                                </div>
+                              <div class="col-md-6">
+                                  <div class="d-flex justify-content-center align-items-center">
+                                      <img src="/assets/amenities.jpg" 
+                                           alt="weather icons"
+                                           class="img-fluid"
+                                           width="70%"
+                                           height="50%">
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </section>
+                </main>
+          </div>
+
+
+
+

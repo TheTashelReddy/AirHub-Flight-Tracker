@@ -1,0 +1,124 @@
+<section class="section my-4">
+    <div class="container text-center">
+        <div class="title py-5">
+            <h1>Share Your Trip</h1>
+            <p class="subtitle">Upload Images to the <strong>Server</strong></p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <form action="/uploadmultiple" enctype="multipart/form-data" method="POST" class="mx-auto">
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="file" class="form-control" name="images" id="formFile" multiple>
+                        </div>
+                    </div>
+                    <!-- Move the upload button inside the form -->
+                    <div class="row justify-content-center mt-3">
+                        <div class="col-12 text-center"> 
+                            <div class="col-6 d-inline-block">
+                                <button type="submit" class="btn btn-warning mb-3">Upload Images</button>
+                            </div>
+                            <div class="col-6 d-inline-block">
+                                <a href="/profile" class="btn btn-secondary">Return to Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Display images with delete and update buttons -->
+<div id="imageGallery" class="row">
+  <% images.forEach((image) => { %>
+  <div class="col-md-4">
+    <div class="card mb-4 shadow-sm">
+      <img src="data:<%= image.contentType %>;base64,<%= image.imageBase64 %>" class="card-img-top" alt="<%= image.filename %>" onclick="updateImage('<%= image._id %>')" id="image_<%= image._id %>">
+      <div class="card-body">
+        <p class="card-text"><%= image.filename %></p>
+        <!-- Button to delete image -->
+        <button onclick="deleteImage('<%= image._id %>')" class="btn btn-secondary">Delete Image</button>
+        <!-- Button to change image -->
+        <button onclick="document.getElementById('uploadImageInput_<%= image._id %>').click()" class="btn btn-primary">Change Image</button>
+        <!-- Hidden input for uploading new image -->
+        <input type="file" id="uploadImageInput_<%= image._id %>" style="display: none" onchange="uploadImage(event, '<%= image._id %>')">
+        <!-- Form for updating image -->
+        <form action="/updateImage" enctype="multipart/form-data" method="POST" style="display: none" id="updateForm_<%= image._id %>">
+          <input type="file" class="form-control" name="image" id="uploadImageInput_<%= image._id %>">
+          <input type="hidden" name="imageId" value="<%= image._id %>">
+          <button type="submit" class="btn btn-warning mt-2">Update Image</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <% }); %>
+</div>
+
+<!-- Script to handle image deletion and update -->
+<script>
+  async function deleteImage(imageId) {
+    try {
+      const response = await fetch(`/images/${imageId}`, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        // Image deleted successfully, refresh the page or update the gallery
+        location.reload();
+      } else {
+        console.error('Error deleting image:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error deleting image:', error.message);
+    }
+  }
+
+  function uploadImage(event, imageId) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  // Display the newly selected image
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const newImageSrc = e.target.result;
+    const imgElement = document.getElementById('image_' + imageId);
+    imgElement.src = newImageSrc;
+
+    // Convert the selected image to base64 string
+    const reader = new FileReader();
+    reader.onloadend = function () {
+      const imageData = reader.result.split(',')[1]; // Extract the base64 string
+      // Prepare the image data and image ID to be sent to the server
+      const requestData = {
+        imageId: imageId,
+        imageData: imageData
+      };
+      // Send the updated image data to the server
+      fetch(`/images/${imageId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+      })
+      .then(response => {
+        if (!response.ok) {
+          console.error('Error updating image:', response.statusText);
+        }
+      })
+      .catch(error => {
+        console.error('Error updating image:', error.message);
+      });
+    };
+    reader.readAsDataURL(file); // Read the selected image file
+  };
+  reader.readAsDataURL(file); // Read the selected image file
+}
+
+  // Function to handle image update
+  function updateImage(imageId) {
+    // Trigger the file input click event to open the file picker dialog
+    document.getElementById('uploadImageInput_' + imageId).click();
+  }
+</script>
+

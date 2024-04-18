@@ -1,0 +1,52 @@
+
+<style>
+    .flight-status {
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+    .search-form {
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+
+  <div class="container my-5" style="  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);">
+    <div class="row">
+        <div class="col-md-6" style="background-color: #f2f2f2;">
+            <div class="flight-status" style="background-color: #f2f2f2;">
+                <h2>Flight Status</h2>
+                <form action="/api/search-flights" method="GET" id="searchForm" style="background-color: #f2f2f2;">
+                    <div class="form-group mb-4">
+                        <input type="text" class="form-control" id="fromInput" placeholder="From" style="background-color: #f2f2f2; border-color: #000;">
+                    </div>
+                    <div class="form-group mb-4">
+                        <input type="text" class="form-control" id="toInput" placeholder="To" style="background-color: #f2f2f2; border-color: #000;">
+                    </div>
+                    <div class="form-group mb-4">
+                        <input type="date" class="form-control" id="dateInput" style="background-color: #f2f2f2; border-color: #000;">
+                    </div>
+                    <button type="submit" class="btn btn-warning">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6" style="background-color: #f2f2f2;">
+            <div class="search-form" style="background-color: #f2f2f2; border-color: #000;">
+                <h2 class="text-center">Arrival Times</h2>
+                <div id="searchResults" class="card-container" style="background-color: #f2f2f2; border-color: #000;">
+                    <!-- Display search results here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+  <script src="/flights.js"></script>

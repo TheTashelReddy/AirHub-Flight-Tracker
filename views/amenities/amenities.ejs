@@ -1,0 +1,315 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amenities</title>
+
+        <!-- Styles for home -->
+        <link rel="stylesheet" href="/amenities.css">
+
+</head>
+<body>
+
+
+
+    <section id="virtual-tour-section" >
+
+      <div class="container" >
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Search Form -->
+      <h2 class="mt-5">Airport/places Location</h2>
+      <form id="search-form" class="mt-1">
+      <input type="text" id="search-input" placeholder="Search for a location">
+      <button type="submit" class="btn btn-lg btn-outline-info">Search</button>
+     </form>
+  
+  
+      <div id="map" class="mt-3"></div>
+  
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCspCWXTxY3WUlHZU_pA7KCL6QguEeYAr8&libraries=places&callback=initMap"></script>
+      <script>
+      $(document).ready(function() {
+        var map;
+        var service;
+  
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 0, lng: 0},
+                zoom: 2
+            });
+  
+            service = new google.maps.places.PlacesService(map);
+        }
+  
+        // Function to perform a text search
+        function performSearch(query) {
+            service.textSearch({
+                query: query,
+                bounds: map.getBounds()
+            }, function(results, status) {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    for (var i = 0; i < results.length; i++) {
+                        createMarker(results[i]);
+                    }
+                }
+            });
+        }
+  
+        // Function to create a marker on the map
+        function createMarker(place) {
+            var marker = new google.maps.Marker({
+                map: map,
+                position: place.geometry.location
+            });
+  
+            var infowindow = new google.maps.InfoWindow();
+            google.maps.event.addListener(marker, 'click', function() {
+                infowindow.setContent(place.name);
+                infowindow.open(map, this);
+            });
+        }
+  
+        // Load the map when the document is ready
+        initMap();
+  
+        // Handle form submission
+        $('#search-form').submit(function(event) {
+            event.preventDefault();
+            var query = $('#search-input').val();
+            if (query) {
+                performSearch(query);
+            }
+        });
+    });
+  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCspCWXTxY3WUlHZU_pA7KCL6QguEeYAr8&libraries=places&callback=initMap"></script>
+            </div>
+            <div class="col-md-6" >
+              <h2 class="virtual-tour">Airport Virtual Tour</h2>
+            <!-- Your airport virtual tour goes here -->
+            <iframe src="https://my.matterport.com/show/?m=qgN2DW7H8xu&utm=&play=1&hr=1&brand=0" width="100%" height="500px"></iframe>
+            </div>  
+        </div>
+    </div>
+    </section>
+
+
+
+<section id="booking-section">
+  <h2 class="mt-5 text-center">Flight Booking</h2>
+ <!-- https://w3layouts.com/airline-booking-form-responsive-widget-template/ -->
+<div class="booking-form-w3layouts">
+<!-- Form starts here -->
+<form action="#" method="post">
+<h2 class="sub-heading-agileits">Booking Details</h2>
+<div class="main-flex-w3ls-sectns">
+  <div class="field-agileinfo-spc form-w3-agile-text1">
+    <select class="form-control">
+              <option>From</option>
+              <option value="Lorem Ipsum">Lorem Ipsum</option>
+              <option value="Adipiscing">Adipiscing</option>
+              <option value="Lorem Ipsum">Lorem Ipsum</option>
+              <option value="Adipiscing">Adipiscing</option>
+              <option value="Lorem Ipsum">Lorem Ipsum</option>
+              <option value="Adipiscing">Adipiscing</option>
+            </select>
+  </div>
+  <div class="field-agileinfo-spc form-w3-agile-text2">
+    <select class="form-control">
+              <option>To</option>
+              <option value="Lorem Ipsum">Lorem Ipsum</option>
+              <option value="Adipiscing">Adipiscing</option>
+              <option value="Lorem Ipsum">Lorem Ipsum</option>
+              <option value="Adipiscing">Adipiscing</option>
+              <option value="Lorem Ipsum">Lorem Ipsum</option>
+              <option value="Adipiscing">Adipiscing</option>
+            </select>
+  </div>
+</div>
+<div class="main-flex-w3ls-sectns">
+  <div class="field-agileinfo-spc form-w3-agile-text1">
+    <select class="form-control">
+              <option>Preferred Airline</option>
+              <option value="American Airline">American Airline</option>
+              <option value="Delta Airlines">Delta Airlines</option>
+              <option value="Frontier Airline">Frontier Airline</option>
+              <option value="Jet Blue">Jet Blue</option>
+              <option value="Southwest Airlines">Southwest Airlines</option>
+            </select>
+  </div>
+  <div class="field-agileinfo-spc form-w3-agile-text2">
+    <select class="form-control">
+              <option>Preferred Seating</option>
+              <option value="Window">Window</option>
+              <option value="Aisle">Aisle</option>
+              <option value="Special">Special (Request note below)</option>
+            </select>
+  </div>
+</div>
+<div class="main-flex-w3ls-sectns">
+  <div class="field-agileinfo-spc form-w3-agile-text1">
+    <input id="datepicker" name="Text" type="text" placeholder="Departure Date" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'mm/dd/yyyy';}" required="" class="hasDatepicker">
+  </div>
+  <div class="field-agileinfo-spc form-w3-agile-text2">
+    <input type="text" id="timepicker" name="Time" class="timepicker form-control hasWickedpicker" placeholder="Departure Time" value="" onkeypress="return false;">
+  </div>
+</div>
+
+<div class="triple-wthree">
+  <div class="field-agileinfo-spc form-w3-agile-text11">
+    <select class="form-control">
+                  <option value="">Adult(12+ Yrs)</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>         
+                  <option value="4">4</option>
+                  <option value="5">5+</option>
+                </select>
+  </div>
+  <div class="field-agileinfo-spc form-w3-agile-text22">
+    <select class="form-control">
+                  <option value="">Children(2-11 Yrs)</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>         
+                  <option value="4">4</option>
+                  <option value="5">5+</option>     
+                </select>
+  </div>
+  <div class="field-agileinfo-spc form-w3-agile-text33">
+    <select class="form-control">
+                  <option value="">Infant(under 2Yrs)</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>         
+                  <option value="4">4</option>
+                  <option value="5">5+</option>    
+                </select>
+  </div>
+</div>
+<div class="radio-section">
+  <h6>Select your Fare</h6>
+  <ul class="radio-buttons-w3-agileits">
+    <li>
+      <input type="radio" id="a-option" name="selector1">
+      <label for="a-option">One Way</label>
+      <div class="check"></div>
+    </li>
+    <li>
+      <input type="radio" id="b-option" name="selector1">
+      <label for="b-option">Round-Trip</label>
+      <div class="check">
+        <div class="inside"></div>
+      </div>
+    </li>
+  </ul>
+  <div class="clear"></div>
+</div>
+<div class="main-flex-w3ls-sectns">
+  <div class="field-agileinfo-spc form-w3-agile-text1">
+    <input id="datepicker1" name="Text" type="text" placeholder="Return Date" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'mm/dd/yyyy';}" required="" class="hasDatepicker">
+  </div>
+  <div class="field-agileinfo-spc form-w3-agile-text2">
+    <input type="text" id="timepicker1" name="Time" class="timepicker form-control hasWickedpicker" placeholder="Return Time" value="" onkeypress="return false;">
+  </div>
+</div>
+<div class="field-agileinfo-spc form-w3-agile-text">
+  <textarea name="Message" placeholder="Any Message..."></textarea>
+</div>
+<h3 class="sub-heading-agileits">Personal Details</h3>
+<div class="main-flex-w3ls-sectns">
+  <div class="field-agileinfo-spc form-w3-agile-text1">
+    <input type="text" name="Name" placeholder="Full Name" required="">
+  </div>
+  <div class="field-agileinfo-spc form-w3-agile-text2">
+    <input type="text" name="Phone no" placeholder="Phone Number" required="">
+  </div>
+</div>
+<div class="field-agileinfo-spc form-w3-agile-text">
+  <input type="email" name="Email" placeholder="Email" required="">
+</div>
+<div class="clear"></div>
+<input type="submit" value="Submit">
+<input type="reset" value="Clear Form">
+<div class="clear"></div>
+</form>
+<!--// Form starts here -->
+</div>
+</section>
+
+
+<section class="postcards">
+<div class="post-cards text-center">
+  <h2>Post Cards</h2>
+  <div class="card-gallery">
+      <!-- Four card images go here -->
+      <div class="card"style="  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);"><img src="/assets/image2.jpeg" alt="Postcard 1" style="  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);"></div>
+      <div class="card" style="  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);"><img src="/assets/image3.jpeg" alt="Postcard 2" style="  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);"></div>
+      <div class="card" style="  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);"><img src="/assets/image5.jpeg" alt="Postcard 3" style="  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);"></div>
+      <div class="card" style="  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);"><img src="/assets/image6.jpeg" alt="Postcard 4" style="  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);"></div>
+  </div>
+</div>
+</section>
+
+<section class="amenities mt-5">
+<h1 class="mb-4 mt-5 text-center text-warning">Check out other Amenities From your choice Airport</h1>
+<div class="container mt-5">
+<div class="row">
+  <div class="col-md-3">
+    <div class="card" style="  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);">
+      <img src="/assets/image 7.jpeg" class="card-img-top" alt="Shops">
+      <div class="card-body">
+        <h5 class="card-title">Shops</h5>
+        <p class="card-text">Explore shops offering everything from souvenirs to luxury goods.<i class="fa-solid fa-arrow-right icon"></i></p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card" style="  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);">
+      <img src="/assets/image8.jpeg" class="card-img-top" alt="Restaurant">
+      <div class="card-body">
+        <h5 class="card-title">Restaurant</h5>
+        <p class="card-text">Enjoy delicious meals and beverages at your airport restaurants.<i class="fa-solid fa-arrow-right icon"></i></p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card" style="  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);">
+      <img src="/assets/image10.jpeg" class="card-img-top" alt="Shuttle">
+      <div class="card-body">
+        <h5 class="card-title">Shuttle Service</h5>
+        <p class="card-text">Convenient shuttle service to and from your airport terminals. <i class="fa-solid fa-arrow-right icon"></i></p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card" style="  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);">
+      <img src="/assets/image11.jpeg" class="card-img-top" alt="Wi-Fi">
+      <div class="card-body">
+        <h5 class="card-title">Wi-Fi</h5>
+        <p class="card-text">Stay connected with free Wi-Fi range throughout your airport.<i class="fa-solid fa-arrow-right icon"></i></p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+</section>
+
+
+
+
+<!-- AFTER DomContent is loaded, display the data of the flights in the map -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  fetchData();
+});
+</script>
+
+
+
+</body>
+</html>
